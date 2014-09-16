@@ -11,25 +11,27 @@ PlayerData = {};
 ServerCore.__index = ServerCore;
 
 
-
-
 function ServerCore:New()
-	local self = {}
-	setmetatable({}, {__index = self});
 	
-	self.host 	  = '127.0.0.1';
-	self.username = 'username';
-	self.database = 'database';
-	self.password = 'password';
+	local self = {}
+	setmetatable(self, self);
+	
+	self.host 	  = 'localhost';
+	self.username 	  = 'root';
+	self.databas      = 'test12';
+	self.passwor	  = '';
 	self.type 	  = 'mysql';
 	
-	self.connect = dbConnect('host='..self.host..';dbname='..self.database, self.username, self.password, self.type);
+	self.connect = dbConnect(self.type, 'dbname='..self.database..';host='..self.host, self.username, self.password, 'share-1');
 	
-	if self.connect then self:outputCore('Die Datenverbindung wurde erfolgreich aufgebaut...'); else self:outputCore('Die Datenverbindung ist Fehlgeschlagen überprüfe die angaben...') end;
+	if self.connect then outputServerCore('Datenverbindung wurde erfolgreich aufgebaut...'); else outputServerCore('Datenverbindung ist Fehlgeschlagen überprüfe die angaben...'); end;
 	
 	return self;
 end
-core = ServerCore:New();
+
+addEventHandler('onResourceStart', getResourceRootElement(getThisResource()), function()
+	core = ServerCore:New();
+end);
 
 
 function ServerCore:query(...)
@@ -38,8 +40,7 @@ function ServerCore:query(...)
 	return query
 end
 
-function ServerCore:assoc(..., data2)
-	local querystring = table.concat({...}, ' ');
+function ServerCore:assoc(data2, querystring)
 	local query = dbQuery(self.connect, querystring);
 	
 	if query then
@@ -53,10 +54,10 @@ function ServerCore:assoc(..., data2)
 end
 
 -- Todo --
-function ServerCore:outputCore(text)
-	return outputDebugString(text);
+function outputServerCore(text)
+	outputDebugString(text);
 end
-
+--
 
 function setPlayerData(player, element, value)
 	if isElement(player) then
@@ -88,6 +89,8 @@ function getPlayerInformations(player)
 		vehicle = getPedOccupiedVehicle(player)
 	}
 end
+
+
 
 
 
