@@ -11,6 +11,8 @@ PlayerData = {};
 ServerCore.__index = ServerCore;
 
 
+
+
 function ServerCore:New()
 	local self = {}
 	setmetatable({}, {__index = self});
@@ -77,13 +79,8 @@ end
 
 function getPlayerInformations(player)
 	return {
-		name = player:getName(),
-		serial = player:getSerial(),
-		position = player:getPosition(),
-		ping = player:getPing(),
-		money = player:getMoney(),
-		health = player:getHealth(),
-		vehicle = getPedOccupiedVehicle(player),
+		name = getPlayerName(player),
+		serial = getPlayerSerial(player)
 	}
 end
 
