@@ -79,8 +79,13 @@ end
 
 function getPlayerInformations(player)
 	return {
-		name = getPlayerName(player),
-		serial = getPlayerSerial(player)
+		name = player:getName(),
+		serial = player:getSerial(),
+		position = player:getPosition(),
+		ping = player:getPing(),
+		money = player:getMoney(),
+		health = player:getHealth(),
+		vehicle = getPedOccupiedVehicle(player)
 	}
 end
 
