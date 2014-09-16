@@ -1,6 +1,7 @@
 --########################--
--- Script: core_class.lua
+-- Script: core.lua
 -- Development: MulTi
+-- Type: OOP
 --#########################--
 
 
